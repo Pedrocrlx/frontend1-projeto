@@ -3,43 +3,83 @@ import { getTasks, addTask, deleteTask } from './api.js';
 document.addEventListener('DOMContentLoaded', async () => {
     const tasks = await getTasks();
     displayTasks(tasks);
+    setInterval(updateClock, 1000); // update clock every second
 });
 
+/**
+ * Updates the clock displayed on the page every second.
+ */
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+/**
+ * Displays the list of tasks in the DOM.
+ * 
+ * @param {Array} tasks - Array of task objects to be displayed.
+ * Each task object should have the following structure:
+ * { id: string, taskTitle: string }
+ */
 function displayTasks(tasks) {
     const taskList = document.getElementById('todo-list');
+    // Clears the task list before rendering
+    taskList.innerHTML = '';
+
     tasks.forEach(task => {
+        localStorage.setItem(`${task.id}`, task.taskTitle);
         const li = document.createElement('li');
         li.innerHTML = `
-            <input type="checkbox">
-            <label id="${task.id}">${task.taskTitle}</label>
-            <button type="submit" class="delete">Delete</button>
+        <div class="tasks">
+        <p class="taskTitle" id="${task.id}">${task.taskTitle}</p>
+        <p class="taskDescription" id="${task.id}">${task.taskDescription}</p>
+        <button type="submit" class="delete btn btn-outline-danger">X</button>
+        </div>
         `;
         taskList.append(li);
     });
 }
 
+/**
+ * Handles click events on the task list.
+ * Specifically listens for clicks on delete buttons and removes the corresponding task.
+ */
+document.getElementById('todo-list').addEventListener('click', async (event) => {
+    if (event.target.classList.contains('delete')) {
+        const taskItem = event.target.parentNode;
+        const taskId = taskItem.querySelector('p').id;
 
-//TENS QUE VER COMO PODES FAZER UM EVENTLISTENER ESPECIFICO PARA O BOTÃO DELETE
+        // Deletes the task from the API
+        await deleteTask(taskId);
+        // Deletes the task from the local storage
+        localStorage.removeItem(`${taskId}`);
+        // Optionally, refresh the task list without reloading the page
+        const tasks = await getTasks();
+        displayTasks(tasks);
+    }
+});
 
+// Event listener for form submission (ADD NEW TASK)
+document.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-// const deleteTaskById = document.getElementById('delete');
-// deleteTaskById.addEventListener('submit', async (event) => {
-//     if (event.target.classList.contains('delete')) {
-//         const taskItem = event.target.parentNode;
-//         const taskId = taskItem.querySelector('label').id;
-//         await deleteTask(taskId);
-//     }
-//     console.log("apagaou");
-//     location.reload();
-// });
-
-document.addEventListener('submit', async (add) => {
-    add.preventDefault();
     const task = {
         taskTitle: document.getElementById('todo-input').value,
     };
+
     const response = await addTask(task);
-    console.log(response);
-    location.reload();
+
+    if (response) {
+        const tasks = await getTasks();
+        displayTasks(tasks);
+    } else {
+        console.error('Error adding task');
+    }
+
+    // Clear the input field after adding the task
+    document.getElementById('todo-input').value = '';
 });
 

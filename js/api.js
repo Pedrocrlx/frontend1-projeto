@@ -1,15 +1,16 @@
 const API = "https://6819013d5a4b07b9d1d1a725.mockapi.io/todo";
 
+// It takes a task object as an argument and sends a POST request to the API
 export const getTasks = async () => {
     const response = await fetch(API + "/tasks");
     if (!response.ok) {
         throw new Error("Failed to fetch tasks");
     }
     const data = await response.json();
-    console.log(data);
     return data;
 }
 
+// This function is used to add a new task to the API
 export const addTask = async (task) => {
     const response = await fetch(API + "/tasks", {
         method: "POST",
@@ -25,6 +26,8 @@ export const addTask = async (task) => {
     return data;
 }
 
+// This function is used to delete a task from the API
+// It takes the task ID as an argument and sends a DELETE request to the API
 export const deleteTask = async (id) => {
     const response = await fetch(API + "/tasks/" + id, {
         method: "DELETE",

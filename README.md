@@ -1,6 +1,6 @@
-# Titulo do website: Todoodledo
+# Titulo do website: Ticky
 
-## Descrição do website: Website de To-do List
+## Descrição do website: To-do List
 
 ## Requisitos:
 Create, Read, Update and Remove operations (Create todo item, read all todo items, update single todo item, remove single todo item).
