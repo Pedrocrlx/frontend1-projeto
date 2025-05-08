@@ -21,7 +21,7 @@ function updateClock() {
  * Displays the list of tasks in the DOM.
  * 
  * @param {Array} tasks - Array of task objects to be displayed.
- * Each task object should have the following structure:
+ * Each task object should have the followin g structure:
  * { id: string, taskTitle: string }
  */
 function displayTasks(tasks) {
@@ -34,10 +34,13 @@ function displayTasks(tasks) {
         const li = document.createElement('li');
         li.innerHTML = `
         <div class="tasks">
-        <p class="taskTitle" id="${task.id}">${task.taskTitle}</p>
-        <p class="taskDescription" id="${task.id}">${task.taskDescription}</p>
-        <button type="submit" class="delete btn btn-outline-danger">X</button>
+            <p class="taskTitle" id="${task.id}">${task.taskTitle}</p>
+            <p class="taskDescription" id="${task.id}">${task.taskDescription}</p>
+            <div class="taskFooter">
+                <span class="material-symbols-outlined delete">delete</span>
+            </div>
         </div>
+        
         `;
         taskList.append(li);
     });
@@ -49,7 +52,7 @@ function displayTasks(tasks) {
  */
 document.getElementById('todo-list').addEventListener('click', async (event) => {
     if (event.target.classList.contains('delete')) {
-        const taskItem = event.target.parentNode;
+        const taskItem = event.target.closest('li');
         const taskId = taskItem.querySelector('p').id;
 
         // Deletes the task from the API
@@ -67,7 +70,8 @@ document.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const task = {
-        taskTitle: document.getElementById('todo-input').value,
+        taskTitle: document.getElementById('todo-title').value,
+        taskDescription: document.getElementById('todo-description').value,
     };
 
     const response = await addTask(task);
@@ -80,6 +84,8 @@ document.addEventListener('submit', async (event) => {
     }
 
     // Clear the input field after adding the task
-    document.getElementById('todo-input').value = '';
+    document.getElementById('todo-title').value = '';
+    document.getElementById('todo-description').value = '';
+
 });
 
