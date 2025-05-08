@@ -1,0 +1,16 @@
+{
+    "name": "Ticky",
+    "short_name": "Ticky",
+    "description": "A simple to-do list application.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#e3e3fb",
+    "theme_color": "#4a90e2",
+    "icons": [
+        {
+            "src": "./logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
