@@ -39,8 +39,6 @@ ul#todo-list {
 }
 
 .taskFooter {
-    position: relative;
-    top: 50%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
