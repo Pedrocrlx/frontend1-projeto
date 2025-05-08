@@ -38,3 +38,20 @@ export const deleteTask = async (id) => {
     const data = await response.json();
     return data;
 };
+
+// This function is used to update a task in the API
+
+export const updateTask = async (id, task) => {
+    const response = await fetch(API + "/tasks/" + id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to update task");
+    }
+    const data = await response.json();
+    return data;
+};

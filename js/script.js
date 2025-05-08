@@ -88,6 +88,7 @@ document.addEventListener('submit', async (event) => {
     // Clear the input field after adding the task
     document.getElementById('todo-title').value = '';
     document.getElementById('todo-description').value = '';
-
 });
+
+
 
