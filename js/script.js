@@ -38,6 +38,8 @@ function displayTasks(tasks) {
             <p class="taskDescription" id="${task.id}">${task.taskDescription}</p>
             <div class="taskFooter">
                 <span class="material-symbols-outlined delete">delete</span>
+                <span class="material-symbols-outlined edit">edit</span>
+
             </div>
         </div>
         

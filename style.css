@@ -48,6 +48,10 @@ ul#todo-list {
     gap: 10px;
 }
 
+span.delete,span.edit {
+    cursor: pointer;
+}
+
 li {
     list-style: none;
 }
