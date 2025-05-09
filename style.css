@@ -9,6 +9,21 @@ body {
     font-weight: bold;
 }
 
+option.notImportant {
+    color: white;
+    background-color: green;
+}
+
+option.important {
+    color: white;
+    background-color: yellow;
+}
+
+option.forNow {
+    color: white;
+    background-color: red;
+}
+
 .header-title {
     font-size: 2.5rem;
     font-weight: bold;
@@ -48,7 +63,8 @@ ul#todo-list {
     gap: 10px;
 }
 
-span.delete,span.edit {
+span.delete,
+span.edit {
     cursor: pointer;
 }
 
