@@ -12,7 +12,7 @@ Generate lighthouse report with all 4 metrics on the green.
 Online on github pages.
 
 ## Bonus
-Implement 1 web component.
+Implement 1 web component
 
 Also use local storage.
 
